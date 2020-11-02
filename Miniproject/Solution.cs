@@ -116,6 +116,7 @@ namespace Miniproject
             int option;
 
             Console.WriteLine("Welcome to the page of Complaints");
+            Console.WriteLine("Please Choose the Option");
             Console.WriteLine("Press the given button to choose");
 
             Console.WriteLine(" Select 1 to Display all the Complaints based on Year");
