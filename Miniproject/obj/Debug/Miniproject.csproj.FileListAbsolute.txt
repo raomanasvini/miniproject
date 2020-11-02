@@ -1,0 +1,7 @@
+C:\C#Assign\Solution1\Miniproject\obj\Debug\Miniproject.csprojAssemblyReference.cache
+C:\C#Assign\Solution1\Miniproject\obj\Debug\Miniproject.csproj.CoreCompileInputs.cache
+C:\C#Assign\Solution1\Miniproject\bin\Debug\Miniproject.exe.config
+C:\C#Assign\Solution1\Miniproject\bin\Debug\Miniproject.exe
+C:\C#Assign\Solution1\Miniproject\bin\Debug\Miniproject.pdb
+C:\C#Assign\Solution1\Miniproject\obj\Debug\Miniproject.exe
+C:\C#Assign\Solution1\Miniproject\obj\Debug\Miniproject.pdb
