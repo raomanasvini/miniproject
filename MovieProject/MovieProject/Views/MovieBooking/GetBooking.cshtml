@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MovieProject.Models.MovieBooking>
+
+@{
+    ViewBag.Title = "GetBooking";
+}
+
+<h2>GetBooking</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberofSeats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Movietable.MovieName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ScreenTable.ScreenId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumberofSeats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movietable.MovieName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ScreenTable.ScreenId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.BookingId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.BookingId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.BookingId })
+        </td>
+    </tr>
+}
+
+</table>

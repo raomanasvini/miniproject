@@ -1,0 +1,50 @@
+﻿@model MovieProject.Models.MovieBooking
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MovieBooking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberofSeats)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberofSeats)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Movietable.MovieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movietable.MovieName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ScreenTable.ScreenId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ScreenTable.ScreenId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BookingId }) |
+    @Html.ActionLink("Back to List", "GetBooking")
+</p>
