@@ -17,5 +17,6 @@ namespace MovieProject.Models
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string Gender { get; set; }
+        public string password { get; set; }
     }
 }

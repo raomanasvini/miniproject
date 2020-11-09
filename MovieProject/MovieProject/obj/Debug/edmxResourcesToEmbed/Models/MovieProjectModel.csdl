@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MoviedatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MovieBooking">
+    <Key>
+      <PropertyRef Name="BookingId" />
+    </Key>
+    <Property Name="BookingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumberofSeats" Type="Int32" />
+    <Property Name="Sid" Type="Int32" />
+    <Property Name="Mid" Type="Int32" />
+    <Property Name="TotalAmount" Type="Int32" />
+    <NavigationProperty Name="Movietable" Relationship="Self.FK__MovieBookin__Mid__72C60C4A" FromRole="MovieBooking" ToRole="Movietable" />
+    <NavigationProperty Name="ScreenTable" Relationship="Self.FK__MovieBookin__Sid__71D1E811" FromRole="MovieBooking" ToRole="ScreenTable" />
+  </EntityType>
+  <EntityType Name="Movietable">
+    <Key>
+      <PropertyRef Name="MovieID" />
+    </Key>
+    <Property Name="MovieID" Type="Int32" Nullable="false" />
+    <Property Name="MovieName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="dateofrelease" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="MovieBookings" Relationship="Self.FK__MovieBookin__Mid__72C60C4A" FromRole="Movietable" ToRole="MovieBooking" />
+    <NavigationProperty Name="ScreenTables" Relationship="Self.FK__ScreenTable__Mid__4E88ABD4" FromRole="Movietable" ToRole="ScreenTable" />
+  </EntityType>
+  <EntityType Name="ScreenTable">
+    <Key>
+      <PropertyRef Name="ScreenId" />
+    </Key>
+    <Property Name="ScreenId" Type="Int32" Nullable="false" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="Tid" Type="Int32" />
+    <Property Name="Mid" Type="Int32" />
+    <Property Name="NumberofSeats" Type="Int32" />
+    <NavigationProperty Name="MovieBookings" Relationship="Self.FK__MovieBookin__Sid__71D1E811" FromRole="ScreenTable" ToRole="MovieBooking" />
+    <NavigationProperty Name="Movietable" Relationship="Self.FK__ScreenTable__Mid__4E88ABD4" FromRole="ScreenTable" ToRole="Movietable" />
+    <NavigationProperty Name="theatretable" Relationship="Self.FK__ScreenTable__Tid__4D94879B" FromRole="ScreenTable" ToRole="theatretable" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="theatretable">
+    <Key>
+      <PropertyRef Name="Theatreid" />
+    </Key>
+    <Property Name="Theatreid" Type="Int32" Nullable="false" />
+    <Property Name="TheatreName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ScreenTables" Relationship="Self.FK__ScreenTable__Tid__4D94879B" FromRole="theatretable" ToRole="ScreenTable" />
+  </EntityType>
+  <Association Name="FK__MovieBookin__Mid__72C60C4A">
+    <End Role="Movietable" Type="Self.Movietable" Multiplicity="0..1" />
+    <End Role="MovieBooking" Type="Self.MovieBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movietable">
+        <PropertyRef Name="MovieID" />
+      </Principal>
+      <Dependent Role="MovieBooking">
+        <PropertyRef Name="Mid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__MovieBookin__Sid__71D1E811">
+    <End Role="ScreenTable" Type="Self.ScreenTable" Multiplicity="0..1" />
+    <End Role="MovieBooking" Type="Self.MovieBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScreenTable">
+        <PropertyRef Name="ScreenId" />
+      </Principal>
+      <Dependent Role="MovieBooking">
+        <PropertyRef Name="Sid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ScreenTable__Mid__4E88ABD4">
+    <End Role="Movietable" Type="Self.Movietable" Multiplicity="0..1" />
+    <End Role="ScreenTable" Type="Self.ScreenTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movietable">
+        <PropertyRef Name="MovieID" />
+      </Principal>
+      <Dependent Role="ScreenTable">
+        <PropertyRef Name="Mid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ScreenTable__Tid__4D94879B">
+    <End Role="theatretable" Type="Self.theatretable" Multiplicity="0..1" />
+    <End Role="ScreenTable" Type="Self.ScreenTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="theatretable">
+        <PropertyRef Name="Theatreid" />
+      </Principal>
+      <Dependent Role="ScreenTable">
+        <PropertyRef Name="Tid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MoviedatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="MovieBookings" EntityType="Self.MovieBooking" />
+    <EntitySet Name="Movietables" EntityType="Self.Movietable" />
+    <EntitySet Name="ScreenTables" EntityType="Self.ScreenTable" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="theatretables" EntityType="Self.theatretable" />
+    <AssociationSet Name="FK__MovieBookin__Mid__72C60C4A" Association="Self.FK__MovieBookin__Mid__72C60C4A">
+      <End Role="Movietable" EntitySet="Movietables" />
+      <End Role="MovieBooking" EntitySet="MovieBookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__MovieBookin__Sid__71D1E811" Association="Self.FK__MovieBookin__Sid__71D1E811">
+      <End Role="ScreenTable" EntitySet="ScreenTables" />
+      <End Role="MovieBooking" EntitySet="MovieBookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ScreenTable__Mid__4E88ABD4" Association="Self.FK__ScreenTable__Mid__4E88ABD4">
+      <End Role="Movietable" EntitySet="Movietables" />
+      <End Role="ScreenTable" EntitySet="ScreenTables" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ScreenTable__Tid__4D94879B" Association="Self.FK__ScreenTable__Tid__4D94879B">
+      <End Role="theatretable" EntitySet="theatretables" />
+      <End Role="ScreenTable" EntitySet="ScreenTables" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MoviedatabaseModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MoviedatabaseModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

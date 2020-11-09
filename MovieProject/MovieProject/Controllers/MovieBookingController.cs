@@ -31,16 +31,16 @@ namespace MovieProject.Controllers
         {
             ScreenTable ST = new ScreenTable();
             var amount = (from s in db.ScreenTables
-                           where s.ScreenId == movieBooking.Sid
-                           select s.Amount).First();           
+                          where s.ScreenId == movieBooking.Sid
+                          select s.Amount).First();
             var Tamount = amount * movieBooking.NumberofSeats;
             ViewBag.TotalAmount = Tamount;
-           
+
             if (ModelState.IsValid)
             {
                 db.MovieBookings.Add(movieBooking);
                 movieBooking.TotalAmount = Tamount;
-                ScreenTable sc= db.ScreenTables.Find(ST.ScreenId = Convert.ToInt32(movieBooking.Sid));
+                ScreenTable sc = db.ScreenTables.Find(ST.ScreenId = Convert.ToInt32(movieBooking.Sid));
                 sc.NumberofSeats = (sc.NumberofSeats - movieBooking.NumberofSeats);
                 db.SaveChanges();
                 return RedirectToAction("GetBooking");
@@ -51,21 +51,21 @@ namespace MovieProject.Controllers
 
             return View(movieBooking);
         }
-        public ActionResult Delete(int id)
-        {
-            ScreenTable ST = new ScreenTable();
-            MovieBooking movieBooking = db.MovieBookings.Find(id);
-            ScreenTable screen = db.ScreenTables.Find(ST.ScreenId = id);
-            screen.NumberofSeats = (screen.NumberofSeats + movieBooking.NumberofSeats);
-            db.MovieBookings.Remove(movieBooking);
-            db.SaveChanges();
-            return RedirectToAction("GetBooking");
-        }
-
         public ActionResult Details(int id)
         {
             MovieBooking movieBooking = db.MovieBookings.Find(id);
             return View(movieBooking);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            ScreenTable ST = new ScreenTable();
+            MovieBooking movieBooking = db.MovieBookings.Find(id);
+            ScreenTable screen = db.ScreenTables.Find(ST.ScreenId = Convert.ToInt32(movieBooking.Sid));
+            screen.NumberofSeats = (screen.NumberofSeats + movieBooking.NumberofSeats);
+            db.MovieBookings.Remove(movieBooking);
+            db.SaveChanges();
+            return RedirectToAction("GetBooking");
         }
     }
 }
